@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;600;800&family=Montserrat:wght@600;800;900&family=Playfair+Display:ital,wght@1,700&family=Instrument+Serif:ital@1&family=DM+Serif+Display:ital@1&family=Unbounded:wght@600;800&family=Syne:wght@700;800&family=Bebas+Neue&family=Pinyon+Script&family=Great+Vibes&display=swap">
+<style>
+:root{
+  --bg:#0B0B0F; --surface:#15151C; --surface2:#1C1C25; --line:#2A2A35; --text:#F4F4F6; --muted:#8A8A99;
+  --accent:#3B7BFF; --fontColor:#FFFFFF; --capFont:'Inter';
+  --r:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Inter,system-ui,-apple-system,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1440px;margin:0 auto;padding:28px 24px 64px}
+header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{margin:6px 0 4px;font:800 30px/1.15 Montserrat,Inter,sans-serif}
+.sub{color:var(--muted);font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:13px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#0B0B0F}
+.btn.ghost{background:transparent}
+.btn.sm{padding:5px 10px;font-size:12px;border-radius:8px}
+section.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:22px}
+h2{margin:0 0 4px;font:800 20px/1.2 Montserrat,Inter,sans-serif}
+.secnum{color:var(--accent);margin-right:8px}
+.hint{color:var(--muted);font-size:13px;margin:0 0 18px}
+
+/* ---- style section ---- */
+.style-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;min-width:0;gap:28px;align-items:start}
+.field{margin-bottom:20px}
+.field label.lbl{display:block;font-weight:700;font-size:13px;margin-bottom:8px}
+.field .desc{color:var(--muted);font-size:12px;margin:-4px 0 10px}
+.swatches{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sw{width:34px;height:34px;border-radius:10px;border:2px solid transparent;cursor:pointer;position:relative}
+.sw.on{border-color:var(--text);box-shadow:0 0 0 3px var(--bg) inset}
+.sw[title]:hover::after{content:attr(title);position:absolute;top:40px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#000;padding:3px 7px;border-radius:6px;font-size:11px;z-index:2}
+input[type=color]{width:44px;height:34px;padding:0;border:1px solid var(--line);border-radius:10px;background:none;cursor:pointer}
+.hex{width:96px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.fonts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:8px}
+.style-grid>*,.workspace>*,section.card{min-width:0}
+.fontopt{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left}
+.fontopt .sample{font-size:22px;line-height:1.1;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fontopt .name{font-size:11px;color:var(--muted)}
+.fontopt.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+
+/* live preview phone */
+.preview-wrap{position:sticky;top:16px}
+.preview-wrap .lbl{font-weight:700;font-size:13px;margin-bottom:8px;display:block}
+.phone{width:100%;aspect-ratio:9/16;border-radius:26px;overflow:hidden;position:relative;border:1px solid var(--line);
+  background:radial-gradient(120% 80% at 50% 25%,#5a4636 0%,#2a211b 45%,#120f0d 100%)}
+.phone .head{position:absolute;left:50%;top:22%;transform:translateX(-50%);width:27%;aspect-ratio:1;border-radius:50%;background:#c79a7b;opacity:.85}
+.phone .body{position:absolute;left:50%;transform:translateX(-50%);top:39%;bottom:0;width:66%;border-radius:120px 120px 0 0;background:#3c4452;opacity:.95}
+.phone .dim{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(0,0,0,.6) 100%)}
+.cap{position:absolute;left:8%;right:8%;top:52%;text-align:center;color:var(--fontColor);font-family:var(--capFont),Inter,sans-serif;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.cap .lead{font-size:13px;opacity:.92;display:block;margin-bottom:-2px}
+.cap .hero{font-size:34px;line-height:1;font-weight:800;color:var(--accent);text-shadow:0 0 18px color-mix(in srgb,var(--accent) 55%,transparent),0 2px 8px rgba(0,0,0,.4)}
+.ui{position:absolute;left:12%;right:12%;bottom:9%;border-radius:14px;padding:10px 12px;background:rgba(14,16,23,.82);border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 10px 40px -8px color-mix(in srgb,var(--accent) 70%,transparent)}
+.ui .t{font-family:var(--capFont),Inter,sans-serif;color:var(--fontColor);font-size:11px;font-weight:700}
+.ui .n{font-family:var(--capFont),Inter,sans-serif;color:var(--fontColor);font-size:20px;font-weight:800;margin:2px 0 6px}
+.ui .bar{height:5px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden}
+.ui .bar i{display:block;height:100%;width:68%;background:var(--accent);border-radius:5px}
+.preview-meta{color:var(--muted);font-size:12px;margin-top:8px}
+
+/* ---- workspace ---- */
+.workspace{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:18px;align-items:start}
+.panel{background:var(--surface2);border:1px solid var(--line);border-radius:18px;padding:16px;min-width:0}
+.panel-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.panel-h h3{margin:0;font:800 16px Montserrat,Inter,sans-serif}
+.scene-list{display:flex;flex-direction:column;gap:10px;max-height:78vh;overflow:auto;padding-right:4px}
+.scene{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;transition:border-color .15s}
+.scene:hover{border-color:#3a3a48}
+.scene.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.scene-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.num{font:800 13px Montserrat,Inter,sans-serif;background:var(--line);border-radius:7px;padding:2px 8px}
+.scene.sel .num{background:var(--accent);color:#0B0B0F}
+.tc{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--muted)}
+.badge{margin-left:auto;font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted)}
+.badge.set{color:var(--text);border-color:color-mix(in srgb,var(--accent) 60%,var(--line))}
+.scene textarea{width:100%;min-height:64px;resize:vertical;background:transparent;border:1px solid transparent;border-radius:10px;padding:6px 8px;color:var(--text);line-height:1.5}
+.scene textarea:focus{outline:none;border-color:var(--line);background:var(--bg)}
+.scene-ctl{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.planflag{font-size:11px;color:var(--accent);font-weight:700}
+
+.right-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.right-h h3{margin:0;font:800 18px Montserrat,Inter,sans-serif}
+.quote{color:var(--muted);font-size:13px;margin:0 0 16px;border-left:3px solid var(--accent);padding-left:10px;max-height:4.5em;overflow:hidden}
+.sublbl{font-weight:700;font-size:13px;margin:0 0 10px}
+.types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+html,body{overflow-x:hidden}
+.type{position:relative;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px}
+.type:hover{border-color:#44445a}
+.type.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--surface));box-shadow:0 0 0 1px var(--accent)}
+.type .check{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:900;color:transparent}
+.type.on .check{background:var(--accent);border-color:var(--accent);color:#0B0B0F}
+.type .tl{font-weight:800;font-size:14px}
+.type .td{font-size:12px;color:var(--muted);line-height:1.35}
+/* mini 9:16 previews */
+.mini{width:54px;aspect-ratio:9/16;border-radius:9px;border:1px solid var(--line);background:#24242e;position:relative;overflow:hidden}
+.mini .p{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:62%}
+.mini .p .h{width:46%;aspect-ratio:1;border-radius:50%;background:#9a8a80;margin:0 auto}
+.mini .p .b{width:100%;height:26px;border-radius:20px 20px 0 0;background:#5a6272;margin-top:2px}
+.mini .c{position:absolute;left:16%;right:16%;height:3px;border-radius:2px;background:#fff}
+.mini .c.k{background:var(--accent)}
+.mini .u{position:absolute;left:12%;right:12%;bottom:10%;height:18%;border-radius:5px;background:#0e1017;border:1px solid color-mix(in srgb,var(--accent) 70%,transparent);box-shadow:0 0 8px color-mix(in srgb,var(--accent) 60%,transparent)}
+.mini .top{position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 55%,#111) ,#111 90%);border-bottom:1px solid rgba(255,255,255,.15)}
+.mini .top i{position:absolute;bottom:22%;width:12%;background:rgba(255,255,255,.8);border-radius:2px}
+.mini .full{position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 40%,color-mix(in srgb,var(--accent) 70%,#111),#0b0b10 80%)}
+.mini .full .o{position:absolute;left:50%;top:40%;width:44%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(255,255,255,.85)}
+.mini .full .l{position:absolute;left:20%;right:20%;top:70%;height:3px;background:#fff;border-radius:2px}
+.plan-area{width:100%;min-height:440px;resize:vertical;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;line-height:1.6;color:var(--text)}
+.plan-area:focus{outline:none;border-color:var(--accent)}
+.plan-foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{font-size:12px;border:1px dashed var(--line);border-radius:999px;padding:3px 10px;cursor:pointer;background:none;color:var(--muted)}
+.chip:hover{color:var(--text);border-color:var(--accent)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:#0B0B0F;font-weight:700;padding:9px 16px;border-radius:10px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1}
+.sum{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.sum span{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:3px 8px}
+
+@media (max-width:1100px){.types{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){
+  .workspace{grid-template-columns:minmax(0,1fr)}
+  .style-grid{grid-template-columns:minmax(0,1fr)}
+  .preview-wrap{position:static;max-width:260px}
+  .scene-list{max-height:none}
+}
+@media (max-width:520px){.wrap{padding:18px 16px 48px}.types{grid-template-columns:1fr 1fr}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Edit planner</div>
+      <h1 id="title">Untitled edit</h1>
+      <div class="sub" id="subtitle"></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="exportJson" title="Save edit-plan.json next to the cut video so Claude can build the edit">Save plan (JSON)</button>
+      <button class="btn" id="copyMd">Copy as Markdown</button>
+      <label class="btn" style="display:inline-flex;align-items:center">Import<input type="file" id="importJson" accept=".json,application/json" hidden></label>
+      <button class="btn ghost" id="reset" title="Discard edits and reload the scenes from the transcript">Reset</button>
+    </div>
+  </header>
+
+  <!-- ===== 1. Visual style ===== -->
+  <section class="card" id="style">
+    <h2><span class="secnum">01</span>Visual style</h2>
+    <p class="hint">Applies to the whole edit: captions, on-screen text and UI.</p>
+    <div class="style-grid">
+      <div>
+        <div class="field">
+          <label class="lbl">Main color</label>
+          <p class="desc">Primary colour used throughout the edit: hero words, glows, UI accents.</p>
+          <div class="swatches" id="mainSwatches"></div>
+        </div>
+        <div class="field">
+          <label class="lbl">Font</label>
+          <p class="desc">Font style for captions and on-screen text.</p>
+          <div class="fonts" id="fonts"></div>
+        </div>
+        <div class="field">
+          <label class="lbl">Font color</label>
+          <p class="desc">Colour of regular caption and UI text.</p>
+          <div class="swatches" id="fontSwatches"></div>
+        </div>
+      </div>
+      <div class="preview-wrap">
+        <span class="lbl">Live preview</span>
+        <div class="phone" aria-label="Preview of the selected style">
+          <div class="head"></div><div class="body"></div>
+          <div class="dim"></div>
+          <div class="cap"><span class="lead">the one thing that</span><span class="hero">changes everything</span></div>
+          <div class="ui"><div class="t">Growth this month</div><div class="n">+312%</div><div class="bar"><i></i></div></div>
+        </div>
+        <div class="preview-meta" id="previewMeta"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. Workspace ===== -->
+  <section class="card" id="workspace">
+    <h2><span class="secnum">02</span>Script &amp; editing plan</h2>
+    <p class="hint">Pick a scene on the left; set its type and write its full editing plan on the right.</p>
+    <div class="workspace">
+      <div class="panel">
+        <div class="panel-h"><h3>Script</h3><button class="btn sm" id="addScene">+ Add scene</button></div>
+        <div class="scene-list" id="sceneList"></div>
+        <div class="sum" id="summary"></div>
+      </div>
+      <div class="panel" id="right">
+        <div class="right-h"><h3 id="rTitle">Scene</h3><span class="tc" id="rTc"></span></div>
+        <p class="quote" id="rQuote"></p>
+        <p class="sublbl">Scene type</p>
+        <div class="types" id="types" role="radiogroup" aria-label="Scene type"></div>
+        <p class="sublbl">Full editing plan</p>
+        <div class="chips" id="chips"></div>
+        <textarea class="plan-area" id="plan" placeholder="Write the complete plan for this scene…
+
+Animations: what appears, where, when (e.g. hero word “growth” pops at 0:03.2, lime glow)
+Transitions: in / out of this scene (hard cut, light flash, whip…)
+Sound effects: whoosh on the slide, pop on the card, riser into the next scene…
+Visual references: Figma board / file names (e.g. data-widgets-03.png)
+Timing: start → end, holds, beats"></textarea>
+        <div class="plan-foot"><span id="saved">Saved in this browser</span><span id="count"></span></div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script id="plan-data" type="application/json">/*__PLAN_DATA__*/</script>
+<script>
+(() => {
+  const DEFAULT = {project:"demo", title:"Untitled edit", video:"", duration:0, style:{mainColor:"#3B7BFF", font:"Inter", fontColor:"#FFFFFF"},
+    scenes:[{id:"s1", start:0, end:4, script:"Paste or load your script here.", type:"captions", plan:""}]};
+  let seed;
+  try { const raw = document.getElementById('plan-data').textContent.trim(); seed = raw.startsWith('{') ? JSON.parse(raw) : DEFAULT; } catch (e) { seed = DEFAULT; }
+  const KEY = 'edit-planner:' + (seed.project || 'demo');
+  const clone = o => JSON.parse(JSON.stringify(o));
+  let state;
+  try { state = JSON.parse(localStorage.getItem(KEY)) || clone(seed); } catch (e) { state = clone(seed); }
+  state.style = Object.assign({mainColor:"#3B7BFF", font:"Inter", fontColor:"#FFFFFF"}, state.style || {});
+  let sel = state.scenes[0] ? state.scenes[0].id : null;
+
+  const MAIN = [["#3B7BFF","Electric blue"],["#7B5CFF","Violet"],["#38D6FF","Cyan"],["#C6FF3D","Neon lime"],["#F7C873","Gold"],["#FF8A1F","Orange"],["#2E8B6A","Teal"],["#A3121B","Deep red"],["#FF4D8D","Pink"],["#FFFFFF","White"]];
+  const FONTCOL = [["#FFFFFF","White"],["#F4F1EA","Warm white"],["#F3E36A","Butter"],["#D7F5CF","Mint"],["#1C1C1C","Ink"],["#8A8FA3","Grey"]];
+  const FONTS = [["Inter","Clean sans"],["Manrope","Rounded sans"],["Montserrat","Bold sans"],["Playfair Display","Serif italic"],["Instrument Serif","Elegant serif"],["DM Serif Display","Display serif"],["Unbounded","Wide caps"],["Syne","Editorial"],["Bebas Neue","Condensed"],["Pinyon Script","Script"],["Great Vibes","Script"]];
+  const ITALIC = {"Playfair Display":1,"Instrument Serif":1,"DM Serif Display":1};
+  const TYPES = [
+    {id:"captions", label:"Captions", desc:"Talker on screen with captions only. Simple, no extra animation or UI.",
+     mini:'<div class="p"><div class="h"></div><div class="b"></div></div><div class="c" style="top:56%"></div><div class="c k" style="top:63%;left:24%;right:24%"></div>'},
+    {id:"caption_ui", label:"Caption + UI", desc:"Talker with captions and a small animation or UI element in the lower half.",
+     mini:'<div class="p"><div class="h"></div><div class="b"></div></div><div class="c" style="top:46%"></div><div class="c k" style="top:52%;left:26%;right:26%"></div><div class="u"></div>'},
+    {id:"half", label:"Half Screen", desc:"Animation or graphics in the top half, talker in the bottom half.",
+     mini:'<div class="top"><i style="left:22%;height:22%"></i><i style="left:44%;height:38%"></i><i style="left:66%;height:58%"></i></div><div class="p" style="width:50%"><div class="h"></div><div class="b" style="height:18px"></div></div>'},
+    {id:"full", label:"Full Screen Animation", desc:"The whole screen is animation or motion graphics. No talker.",
+     mini:'<div class="full"><div class="o"></div><div class="l"></div></div>'}
+  ];
+  const TYPE_NAME = Object.fromEntries(TYPES.map(t => [t.id, t.label]));
+  const CHIPS = ["Animations:", "Transitions:", "Sound effects:", "Visual references:", "Timing:"];
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const tc = t => { t = Math.max(0, +t || 0); const m = Math.floor(t / 60), s = (t - m * 60); return m + ":" + s.toFixed(1).padStart(4, "0"); };
+
+  let saveTimer;
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      state.updated = new Date().toISOString();
+      try { localStorage.setItem(KEY, JSON.stringify(state)); $('saved').textContent = 'Saved in this browser · ' + new Date().toLocaleTimeString(); }
+      catch (e) { $('saved').textContent = 'Not saved (browser storage blocked). Use Save plan (JSON).'; }
+    }, 250);
+  }
+  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1600); }
+
+  // ---------- style ----------
+  function applyStyle() {
+    const r = document.documentElement.style, st = state.style;
+    r.setProperty('--accent', st.mainColor); r.setProperty('--fontColor', st.fontColor); r.setProperty("--capFont", "'" + st.font + "'");
+    document.querySelector('.cap .hero').style.fontStyle = ITALIC[st.font] ? 'italic' : 'normal';
+    $('previewMeta').textContent = st.font + " · main " + st.mainColor.toUpperCase() + " · text " + st.fontColor.toUpperCase();
+  }
+  function swatchRow(el, list, key) {
+    const cur = state.style[key].toUpperCase();
+    el.innerHTML = list.map(([c, n]) => `<button class="sw${c.toUpperCase() === cur ? ' on' : ''}" style="background:${c}" title="${n}" data-c="${c}" aria-label="${n}"></button>`).join('')
+      + `<input type="color" value="${state.style[key]}" aria-label="Custom colour"><input class="hex" value="${state.style[key].toUpperCase()}" aria-label="Hex value" maxlength="7">`;
+    const set = c => { if (!/^#[0-9a-f]{6}$/i.test(c)) return; state.style[key] = c; save(); applyStyle(); swatchRow(el, list, key); renderTypes(); };
+    el.querySelectorAll('.sw').forEach(b => b.onclick = () => set(b.dataset.c));
+    el.querySelector('input[type=color]').oninput = e => set(e.target.value);
+    el.querySelector('.hex').onchange = e => set(e.target.value.trim().startsWith('#') ? e.target.value.trim() : '#' + e.target.value.trim());
+  }
+  function renderFonts() {
+    $('fonts').innerHTML = FONTS.map(([f, d]) => `<button class="fontopt${state.style.font === f ? ' on' : ''}" data-f="${f}"><span class="sample" style="font-family:'${f}',Inter;${ITALIC[f] ? 'font-style:italic' : ''}">Aa Growth</span><span class="name">${f} · ${d}</span></button>`).join('');
+    $('fonts').querySelectorAll('.fontopt').forEach(b => b.onclick = () => { state.style.font = b.dataset.f; save(); applyStyle(); renderFonts(); });
+  }
+
+  // ---------- scenes ----------
+  const cur = () => state.scenes.find(s => s.id === sel);
+  function renderScenes() {
+    $('sceneList').innerHTML = state.scenes.map((s, i) => `
+      <div class="scene${s.id === sel ? ' sel' : ''}" data-id="${s.id}">
+        <div class="scene-top"><span class="num">${i + 1}</span><span class="tc">${tc(s.start)} → ${tc(s.end)}</span>
+          ${s.plan && s.plan.trim() ? '<span class="planflag">● plan</span>' : ''}
+          <span class="badge${s.type ? ' set' : ''}">${TYPE_NAME[s.type] || 'No type'}</span></div>
+        <textarea aria-label="Script for scene ${i + 1}">${esc(s.script)}</textarea>
+        <div class="scene-ctl">
+          <button class="btn sm" data-a="up" ${i === 0 ? 'disabled' : ''} aria-label="Move up">↑</button>
+          <button class="btn sm" data-a="down" ${i === state.scenes.length - 1 ? 'disabled' : ''} aria-label="Move down">↓</button>
+          <button class="btn sm" data-a="merge" ${i === state.scenes.length - 1 ? 'disabled' : ''}>Merge with next</button>
+          <button class="btn sm" data-a="dup">Duplicate</button>
+          <button class="btn sm" data-a="del">Delete</button>
+        </div>
+      </div>`).join('');
+    $('sceneList').querySelectorAll('.scene').forEach(card => {
+      const id = card.dataset.id;
+      card.onclick = e => { if (e.target.closest('button')) return; if (sel !== id) { sel = id; renderScenes(); renderRight(); } };
+      card.querySelector('textarea').oninput = e => { const s = state.scenes.find(x => x.id === id); s.script = e.target.value; save(); if (id === sel) $('rQuote').textContent = s.script; };
+      card.querySelectorAll('button[data-a]').forEach(b => b.onclick = () => act(id, b.dataset.a));
+    });
+    const counts = TYPES.map(t => `${t.label}: ${state.scenes.filter(s => s.type === t.id).length}`);
+    const planned = state.scenes.filter(s => s.plan && s.plan.trim()).length;
+    $('summary').innerHTML = [`${state.scenes.length} scenes`, `${planned} planned`, ...counts].map(x => `<span>${x}</span>`).join('');
+  }
+  function act(id, a) {
+    const i = state.scenes.findIndex(s => s.id === id), S = state.scenes;
+    if (a === 'up' && i > 0) [S[i - 1], S[i]] = [S[i], S[i - 1]];
+    if (a === 'down' && i < S.length - 1) [S[i + 1], S[i]] = [S[i], S[i + 1]];
+    if (a === 'merge' && i < S.length - 1) { const n = S[i + 1]; S[i].script = (S[i].script + ' ' + n.script).trim(); S[i].end = n.end; S[i].plan = [S[i].plan, n.plan].filter(x => x && x.trim()).join('\n\n'); S.splice(i + 1, 1); sel = S[i].id; }
+    if (a === 'dup') { const c = clone(S[i]); c.id = 's' + Date.now(); S.splice(i + 1, 0, c); sel = c.id; }
+    if (a === 'del') { if (S.length === 1) return toast('Keep at least one scene'); if (!confirmDel(S[i])) return; S.splice(i, 1); sel = S[Math.min(i, S.length - 1)].id; }
+    save(); renderScenes(); renderRight();
+  }
+  function confirmDel(s) { return !(s.plan && s.plan.trim()) || window.confirm('Delete this scene and its plan?'); }
+
+  function renderTypes() {
+    const s = cur(); if (!s) return;
+    $('types').innerHTML = TYPES.map(t => `
+      <button class="type${s.type === t.id ? ' on' : ''}" role="radio" aria-checked="${s.type === t.id}" data-t="${t.id}">
+        <span class="check">✓</span><div class="mini">${t.mini}</div><span class="tl">${t.label}</span><span class="td">${t.desc}</span>
+      </button>`).join('');
+    $('types').querySelectorAll('.type').forEach(b => b.onclick = () => { s.type = b.dataset.t; save(); renderTypes(); renderScenes(); });
+  }
+  function renderRight() {
+    const s = cur(); if (!s) return;
+    const i = state.scenes.indexOf(s);
+    $('rTitle').textContent = 'Scene ' + (i + 1); $('rTc').textContent = tc(s.start) + ' → ' + tc(s.end) + ' · ' + Math.max(0, s.end - s.start).toFixed(1) + 's';
+    $('rQuote').textContent = s.script;
+    renderTypes();
+    $('plan').value = s.plan || '';
+    count();
+  }
+  function count() { const v = $('plan').value; $('count').textContent = v.trim() ? v.trim().split(/\s+/).length + ' words' : ''; }
+  $('plan').oninput = () => { const s = cur(); if (!s) return; const had = !!(s.plan && s.plan.trim()); s.plan = $('plan').value; save(); count(); if (had !== !!s.plan.trim()) renderScenes(); };
+  $('chips').innerHTML = CHIPS.map(c => `<button class="chip" data-c="${c}">+ ${c.replace(':', '')}</button>`).join('');
+  $('chips').querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    const ta = $('plan'), add = (ta.value && !ta.value.endsWith('\n') ? '\n' : '') + b.dataset.c + ' ';
+    ta.value += add; ta.focus(); ta.selectionStart = ta.selectionEnd = ta.value.length; ta.oninput();
+  });
+  $('addScene').onclick = () => {
+    const last = state.scenes[state.scenes.length - 1];
+    const s = {id: 's' + Date.now(), start: last ? last.end : 0, end: (last ? last.end : 0) + 3, script: '', type: 'captions', plan: ''};
+    state.scenes.push(s); sel = s.id; save(); renderScenes(); renderRight();
+  };
+
+  // ---------- export / import ----------
+  function md() {
+    const st = state.style;
+    let out = `# Edit plan: ${state.title}\n\nVideo: ${state.video || '-'}\n\n## Visual style\n- Main color: ${st.mainColor}\n- Font: ${st.font}\n- Font color: ${st.fontColor}\n\n## Scenes\n`;
+    state.scenes.forEach((s, i) => { out += `\n### Scene ${i + 1} (${tc(s.start)} → ${tc(s.end)}) · ${TYPE_NAME[s.type] || 'No type'}\n> ${s.script.replace(/\n/g, ' ')}\n\n${(s.plan || '_No plan yet._').trim()}\n`; });
+    return out;
+  }
+  $('exportJson').onclick = () => {
+    const blob = new Blob([JSON.stringify(Object.assign({}, state, {exported: new Date().toISOString()}), null, 2)], {type: 'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'edit-plan.json'; a.click(); URL.revokeObjectURL(a.href);
+    toast('edit-plan.json downloaded. Put it next to the cut video.');
+  };
+  $('copyMd').onclick = async () => { try { await navigator.clipboard.writeText(md()); toast('Copied as Markdown'); } catch (e) { const w = window.open('', '_blank'); if (w) { w.document.body.innerText = md(); } } };
+  $('importJson').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    f.text().then(t => { const d = JSON.parse(t); if (!d.scenes) throw 0; state = d; sel = state.scenes[0].id; save(); boot(); toast('Plan imported'); }).catch(() => toast('Not a valid edit-plan.json'));
+  };
+  $('reset').onclick = () => { if (!window.confirm('Discard all edits and reload the scenes from the transcript?')) return; state = clone(seed); sel = state.scenes[0].id; try { localStorage.removeItem(KEY); } catch (e) {} boot(); toast('Reset'); };
+
+  function boot() {
+    $('title').textContent = state.title || 'Untitled edit'; document.title = (state.title || 'Edit') + ' · Planner';
+    $('subtitle').textContent = [state.video, state.duration ? state.duration.toFixed(1) + 's' : '', state.scenes.length + ' scenes'].filter(Boolean).join(' · ');
+    if (!state.scenes.find(s => s.id === sel)) sel = state.scenes[0] && state.scenes[0].id;
+    applyStyle(); swatchRow($('mainSwatches'), MAIN, 'mainColor'); swatchRow($('fontSwatches'), FONTCOL, 'fontColor'); renderFonts(); renderScenes(); renderRight();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

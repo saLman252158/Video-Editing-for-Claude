@@ -1,0 +1,8 @@
+# Only the skills are versioned. Raw inspo material stays local.
+.DS_Store
+inspo-drive/
+Animation/
+Onscreen Animation/
+how to edit hook/
+*.mp4
+*.mov
