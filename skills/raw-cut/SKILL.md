@@ -29,6 +29,7 @@ Scripts are in `scripts/` next to this file. Below, `$RC` = this skill folder (e
 - Keep the original untouched. Write outputs next to it in a `cut/` folder, or wherever the user asks.
 
 **1. Transcribe:** `bash $RC/scripts/transcribe.sh raw.mov cut/words.json`
+- Word times are DTW-aligned to the audio by default (`--dtw`). Plain Whisper offsets drift up to ~0.4 s, which makes word-by-word captions pop early or late. Use these same aligned times, remapped onto the cut timeline via the cut report's `kept_words`, for the captions in the edit.
 - Pass `[lang]` as a third argument for non-English (`bn`, `hi`, `auto`…). That switches to the multilingual model.
 - It prints the transcript as numbered lines, with a new line at every pause over 0.6 s, e.g. `[  7-69 ]  3.10s  Now we're going to…`. Read all of it.
 

@@ -79,6 +79,7 @@ Hook choreography:
 **Layout**
 - 2 lines max, centered, in the lower half: y ≈ 1050–1350 of 1920.
 - Keep it clear of the IG UI: nothing in the top 220 px or bottom 420 px.
+- **Clear of the mouth, including on punch-ins.** At 1.12–1.2× zoom the mouth drops to about y ≈ 900, so the caption block's top edge goes no higher than y ≈ 1050 (feedback from the user: captions at y 930 covered the talker's mouth). Check a punched-in frame before rendering.
 - A line is a **small lead-in** of 1–5 words in thin or regular sans, plus a **big hero word or phrase** 2–3× larger.
 - The lead-in sits above, beside or in front of the hero word. Tight leading, so the two lines overlap optically.
 
@@ -117,6 +118,7 @@ Hook choreography:
 - The element goes in the **lower third and takes up big space**: 60–85% of frame width, centered or slightly offset, top edge around y ≈ 1000.
 - **Darken and blur the footage behind it.** Use a bottom gradient, black 0% → 55–70%, plus 6–12 px blur under the card, so the UI reads clearly.
 - The caption stays visible just above the element.
+- When the captions move down, move every card down with them (one shared offset), so the gap between caption and card stays about 30 px and the card never covers line 2. Keep the card's bottom above y ≈ 1700.
 
 **What to show, by what the speaker says**
 
@@ -201,6 +203,9 @@ Add paper texture plus a subtle halftone/dot grain over everything.
 ```
 Preset A (Cinematic Podcast)
   grade: warm, soft contrast, slightly lifted blacks, skin natural, background falls off darker
+  exposure: phone footage against a bright window or backlight reads dark on the face; lift it
+           (Remotion/CSS: brightness(1.14) contrast(1.05) saturate(1.08)). Keep the caption
+           readability bed light (start ~48% down, max ~0.45 opacity) so the frame stays bright.
   hero gold   #F7C873 → #E8903A      hero lime  #C6F25A      butter  #F3E36A
   mint nums   #D7F5CF                orange     #FF8A1F      text    #FFFFFF @ 90%
   UI card     #0E1017 @ 80%  border rgba(255,255,255,.10)  radius 24
@@ -255,6 +260,7 @@ Fonts must be installed before rendering. With HyperFrames, load them via `@font
 - [ ] Preset chosen (A / B / C) and stated to the user. One graphic world per video.
 - [ ] **Hook**: speaker visible in frame 1. Name lower third. Hook word picked by type (scary / topic / desire / number / negative) and styled as the hero.
 - [ ] Captions in the lower half (y ≈ 1050–1350), clear of the face and IG zones. Lead-in sans + ONE hero word per group.
+- [ ] Check a punched-in frame: caption below the mouth/beard. Check overall brightness: the face is not dim against a bright background.
 - [ ] Every number the speaker says (that matters) gets a widget or hero number that counts up.
 - [ ] Every tool, list, process or consistency claim got the matching UI element from the §5 table.
 - [ ] Each UI element: lower third, 60–85% wide, darkened/blurred bed behind it, caption still visible above it.
