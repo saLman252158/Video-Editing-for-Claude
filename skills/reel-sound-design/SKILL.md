@@ -1,11 +1,27 @@
 ---
 name: reel-sound-design
-description: The user's sound-design training for video edits. Covers how to place whooshes, textures (pops, clicks, gears, sci-fi impacts), risers and hits, and music on reels and animated explainers, with exact levels, placement on the fastest or event frame, the mandatory 3-pass order (whooshes → textures → risers/hits, then music), separate tracks per sound family, and handoff and acceptance checks. Use it whenever you add, plan, review or fix sound effects, SFX, risers, transitions sounds or music in any edit (Remotion, HyperFrames, ffmpeg/reel-editor), or when the user says "sound design this", "add SFX" or "add whooshes/risers".
+description: The user's sound-design training for video edits. Its first rule is that SFX add detail and must never irritate the viewer (quiet, short and felt rather than noticed). Covers how to place whooshes, textures (pops, clicks, gears, sci-fi impacts), risers and hits, and music on reels and animated explainers, with exact levels, placement on the fastest or event frame, the mandatory 3-pass order (whooshes → textures → risers/hits, then music), separate tracks per sound family, and handoff and acceptance checks. Use it whenever you add, plan, review or fix sound effects, SFX, risers, transitions sounds or music in any edit (Remotion, HyperFrames, ffmpeg/reel-editor), or when the user says "sound design this", "add SFX" or "add whooshes/risers".
 ---
 
 # Reel Sound Design
 
 Below is the user's sound-design training, kept word for word (source: `source/sound training.md`). It was written for **Ultimate Editors / Joseph** working in **Remotion**. Read it fully before placing any sound. First apply these adaptations:
+
+## The first rule: SFX add detail, they never irritate
+
+This is the user's standing rule, and it overrides everything below, including the A3 levels and the "at least two sharp bass + two metallic risers" rule. Sound effects are there to add detail to what the viewer sees. The viewer should *feel* them, not *notice* them. If a sound stands out on a second watch, or makes the viewer want to turn the volume down, it is wrong.
+
+- **Treat the A3 levels as ceilings, not targets.** Start lower and only raise a sound if it disappears completely.
+- **When music carries the piece** (product commercials and promos with no voice), set effects against the music, not against a voice:
+  - music about 0 to -4 dB;
+  - whooshes -21 to -25 dB;
+  - textures (pops, clicks, ticks) -18 to -25 dB;
+  - risers -15 dB at most, hits -13 to -16 dB.
+  - In these pieces, music may run under the graphics; that is what A4 means by the user supplying the track for that edit.
+- **Prefer many small, short sounds over a few big ones.** Detail comes from soft ticks on a title settling, a pop per callout, a click per word and a quiet room-tone bed per scene, not from loud impacts.
+- **Long risers are the most irritating sound.** Use at most one or two per ~25 s video, only for a real reveal. Never lead into the end card, offer or CTA with one. The user had both metallic risers in the FLEXD Perfect Duo ad (p2) replaced with a small, quiet whoosh (~-25 dB) on the cut, and the hit under each removed.
+- **Never let a sound spike above the music bed.** After rendering, compare per-second peaks of the full mix against music-only: they should follow each other closely. Any second where the mix jumps above the music is a sound to pull down or remove.
+- **When in doubt, cut it.** A missing whoosh is never noticed; an annoying one is.
 
 ## How to apply this training in our setup
 
