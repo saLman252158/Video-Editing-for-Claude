@@ -40,6 +40,12 @@ This is the user's standing rule, and it overrides everything below, including t
   - In ffmpeg, apply them as `volume=<dB>dB` on each SFX before `amix`.
   - Then master the whole mix to -14 LUFS / ≤ -1 dBTP; the voice stays the loudest element.
   - If a riser + hit stack masks a word, pull the hit (A3).
+- **Trend reels (reel-visual-language preset D, walk & talk).** Measured on two trending realtor reels (2026-10-29):
+  - a soft music bed runs under the whole voice, not just between graphics, and is clearly audible: about 8–10 LU under the voice (mix floor in pauses about −21 to −23 dB against a voice median about −15 dB);
+  - the final mix sits at −14 LUFS;
+  - effects are few: a soft whoosh on each whip-blur location change, and a soft tick or pop as each photo card lands;
+  - per-word captions get no sound.
+  - In this preset only, set the bed by measured loudness (music-only ≈ voice − 9 LU) instead of a fixed −19 dB, and confirm the level with the user on the first video.
 - **Conflicts.** For sound, this skill replaces the SFX notes in `reel-editor`: its "-19 to -30 dB, felt not heard" levels and its sfx mapping. `reel-editor`'s music level (-20 dB) ≈ -19 dB here, so keep -19.
 - **Pair with `reel-visual-language`.** Its motion events map straight onto these families:
 

@@ -76,5 +76,6 @@ If there are no bad takes, skip `--keep` (it keeps all words and removes silence
 
 ## Notes
 - **Multicam / two speakers:** transcribe the mixed audio and cut on it, but never drop the other speaker's lines as "chatter" unless they're clearly off-topic setup talk.
+- **Walk-and-talk footage** (preset D: the speaker walks toward a gimbal camera): removing a pause inside a walking take makes the body jump. Within a take, only cut retakes and pauses longer than ~0.6 s (`--min-silence 0.6`), and leave shorter breaths in. Make the tight cuts *between* takes and locations instead, where a whip-blur transition hides them. Tell the user you did this.
 - **Music under the raw audio:** silence detection gets less reliable. Rely more on the transcript (word gaps) and check the edges.
 - **Next step:** if the user then wants the full edit, the cut is the input to `reel-editor` (skip its silence-removal step, it's already done, and use `--noise` only for framing splits), plus `reel-visual-language` and `reel-sound-design`.

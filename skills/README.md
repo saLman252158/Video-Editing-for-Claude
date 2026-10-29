@@ -2,7 +2,7 @@
 
 | Skill | What it does |
 |---|---|
-| `reel-visual-language/` | Visual training from the Figma inspo boards: hooks, captions, on-screen UI pop-ups, full-screen animation scenes, colour, type and motion rules. |
+| `reel-visual-language/` | Visual training from the Figma inspo boards and trending reels: hooks, captions, on-screen UI pop-ups, full-screen animation scenes, colour, type and motion rules. Presets A–D (D = walk & talk kinetic, with `scripts/person_matte.swift` for text behind the speaker). |
 | `raw-cut/` | Standing rule: any raw video → word-level transcript → remove every silence and bad take → ~20 ms padding → hand back the cut. Scripts included. |
 | `edit-planner/` | After the cut: builds a planning page (style picker + live preview, script by scene, per-scene type: Captions / Caption + UI / Half Screen / Full Screen, editing plan) and reads back `edit-plan.json`. |
 | `remotion-setup/` | Sets up the pinned Remotion reel studio (Reel 1080x1920@30, media folders, house CLAUDE.md, Remotion's official agent skills) with one command. |

@@ -1,6 +1,6 @@
 ---
 name: reel-visual-language
-description: The user's visual training for short-form video editing. Covers how hooks, captions, name lower thirds, on-screen UI pop-ups, data widgets, full-screen animated scenes, colour, type and motion should look in their vertical 9:16 talking-head reels. It was learned from their Figma inspo boards. Use it whenever you plan, design, animate or review any visual element of a reel/short/TikTok (captions, hook text, overlays, motion graphics, scene graphics, thumbnails-in-video), and alongside the `reel-editor` skill when it is installed. It turns "make it look good" into concrete, repeatable decisions.
+description: The user's visual training for short-form video editing. Covers how hooks, captions, name lower thirds, on-screen UI pop-ups, data widgets, full-screen animated scenes, colour, type and motion should look in their vertical 9:16 talking-head reels. It was learned from their Figma inspo boards and trending reels, including the walk-and-talk kinetic style (one-word captions, mixed-font collage text behind the speaker, floating photo cards). Use it whenever you plan, design, animate or review any visual element of a reel/short/TikTok (captions, hook text, overlays, motion graphics, scene graphics, thumbnails-in-video), and alongside the `reel-editor` skill when it is installed. It turns "make it look good" into concrete, repeatable decisions.
 ---
 
 # Reel Visual Language
@@ -18,6 +18,9 @@ Before designing anything, look at the boards in `reference/`. They are the grou
 | `reference/03-minimal-animation-style.jpg` | The minimal "white paper" full-screen animation style: backgrounds, scene types, layout grid, design rules. |
 | `reference/01-drive-inspo-captions-onscreen-animation.jpg` | 67 sorted references: caption styles, on-screen animation, light/reveal scenes, kinetic posters. |
 | `reference/00-neon-promo-board.jpg` | The older neon-lime promo preset (what `reel-editor`'s house style produces). |
+| `reference/07-walk-talk-trend-sheet-1.jpg` | Preset D, trend reel 1 (Kelsie Blevins, realtor Q1 recap), 1.5 frames/s through the whole video. |
+| `reference/08-walk-talk-trend-sheet-2.jpg` | Preset D, trend reel 2 (Madison Newson, "Gen Z agents"), 1.5 frames/s through the whole video. |
+| `reference/09-walk-talk-details.jpg` | Preset D close-ups: single-word captions, collage hero stacks, text behind the head, photo cards, fridge-magnet + red X, end card. |
 
 Source Figma file (owner's account): https://www.figma.com/design/LkEH9tmFMAa691dUOSfeCk. Pages: Drive Inspo, Hook Inspo, Animation Inspo, On-screen Animation Inspo.
 
@@ -43,8 +46,9 @@ Source Figma file (owner's account): https://www.figma.com/design/LkEH9tmFMAa691
 | **A · Cinematic Podcast** (default for talking heads) | Interviews, podcasts, expert/founder talking heads, educational content | Warm film grade, serif-italic/script hero words in gold or lime, thin sans lead-ins, name lower third, dark-glass UI pop-ups |
 | **B · Minimal Paper** | Concept explainers, storytelling, branding/psychology topics, or whenever the user asks for "the white/minimal animation style" | Full-screen off-white scenes between talking-head shots, halftone objects, 3-tone palette |
 | **C · Neon Promo** (`reel-editor` house style) | Local-business promo ads with a CTA, or when the user names that style or brand (e.g. Allegiant West) | Rounded bold lowercase captions, neon #D7FF1F keyword glow, charcoal value cards, light-leak flashes |
+| **D · Walk & Talk Kinetic** (trending, added 2026-10-29) | Personal-brand reels shot on a gimbal: the speaker walks toward the camera through several locations (realtors, coaches, founders, recaps, "why work with me") | Bright natural daylight, one small white word at a time at chest height, big mixed-font collage phrases that pass **behind the speaker's head**, floating photo cards with depth, location changes on whip-blur transitions, serif name end card. Full rules in §6c. |
 
-Presets A and B mix well: an A talking head with B cutaways. Never mix B and C in one video. If you're unsure which preset fits, A is the default. Tell the user which preset you chose and why, in one line.
+Presets A and B mix well: an A talking head with B cutaways. Never mix B and C in one video. D stands alone: it has its own caption system and colour rules, so don't mix it with A or C captions. If you're unsure which preset fits, A is the default. Tell the user which preset you chose and why, in one line.
 
 ---
 
@@ -196,6 +200,41 @@ Add paper texture plus a subtle halftone/dot grain over everything.
   - Serif italic plus sans, deep blue or violet.
 - **Product/web scene**: a phone or landing page, minimal, blue-white, floating app icons.
 
+### 6c. Preset D · Walk & Talk Kinetic (trend analysis, 2026-10-29)
+
+Learned from two trending realtor reels (`reference/07`–`09`): 35–37 s, 1080x1920, 30 fps, about −14 LUFS. In both, the speaker is the whole show and the graphics are *typography and photos*, not UI cards. It looks premium because the footage is cinematic and the text is collaged around the person, never stuck on top.
+
+**Footage and cutting**
+- Full-body or knee-up shots on a gimbal, with the speaker walking slowly toward the camera. Shallow depth of field, bright daylight, clean whites, soft contrast. No dark or moody grade.
+- **One long take per location.** Change location every 1–3 sentences (shots of about 4–9 s; reel 1 has 5 locations in 37 s, reel 2 about 8). **No jump cuts or punch-ins inside a walking take**: cutting a pause out of a walking take makes the body jump. See `raw-cut` → Notes.
+- **Location changes**: a whip/motion-blur smear (4–6 frames of directional blur and a quick push) or a short speed ramp, landing on the first word of the new sentence. A hard cut is fine when the move is already big.
+
+**Captions: one word at a time**
+- Exactly **one word** on screen at a time (or a 2-word unit like "I started"), switching on each spoken word. No groups, no karaoke.
+- Small: about 44–52 px at 1080 wide. Clean grotesk (Inter SemiBold, Manrope SemiBold or SF-style), white, sentence case, with a soft shadow (0 2px 10px rgba(0,0,0,.35)). No box, stroke or glow.
+- Placement: **chest height, just under the chin**, horizontally centred on the speaker (in full-body shots, y ≈ 860–1000). It follows the speaker across the frame if they're off-centre. This overrides the §4 y ≈ 1050 floor: that floor exists for close-ups, and here the face is small and higher. The rule is still the same: never over the mouth.
+- Entry: 3–4 frame fade with a 6–8 px blur clearing. No pop or bounce.
+
+**Hero phrases: the kinetic collage** (one every 3–6 s, on the line's key idea)
+- The key phrase leaves the caption system and becomes a **big stacked collage** in the upper half (y ≈ 250–750), across or around the head: "LAST YEAR", "Quarterly recap", "the agents", "from a refrigerator magnet anymore", "but I'm learning faster, working harder", "and every story".
+- **Mix 2–3 type styles inside one phrase**: small bold-italic sans lead-in ("from a"), a giant **serif italic** hero word ("refrigerator", "agents": Playfair Display Black Italic or DM Serif Display Italic), a **heavy grotesk** word ("magnet", "LAST YEAR", "grateful": Inter Tight ExtraBold or Archivo Black), and a white bold-italic sans tail ("anymore").
+- **Overlap on purpose**: negative leading (lines 20–35% into each other), one line rotated −4° to −8°, words offset left and right like a magazine collage.
+- **Colour fills**: gradients, not flat fills. Lavender #C3B1F7 → violet #7E5BD9; magenta #F06BF0 → purple #8B3FD9; burnt orange #F2A65A → #E2603A; cream-gold #F1E0BE; teal #5FD3C9; signal red #E8322B for a "no" word. The serif hero can be **texture-filled** (a photo or floral texture clipped to the letters, `background-clip: text`).
+- **Depth**: the hero word sits **behind the speaker's head and shoulders** (person matte on top, see §9). Lead-ins and tails can stay in front. This depth layering is the signature of the style. Use it on at least half of the hero phrases.
+- **Motion**: words build on the spoken word. Each enters with a blur of 16 → 0 px, scale 1.08 → 1, and opacity, over 6–8 frames. The phrase holds with a slow 1–2% drift, and exits with a horizontal **motion smear** (streaked blur 4–6 frames, as on "and make") or a blur-dissolve. A single giant word can also flicker on letter by letter.
+- **Colour rule for D**: up to 3 accent hues per video, each tied to an idea (e.g. lavender = gratitude, orange = stories, purple = the brand). Keep the white single-word captions neutral. This replaces the "one accent colour" rule for D only.
+
+**Big numbers**
+- Money and counts become a giant word **behind the speaker**: "$10 MILLION" in a metallic/brushed-gold gradient with a small lead-in ("And I've closed over"), and "27 families", "20 YRS" with a small 3D icon (e.g. a clock). Count it up only if it's a short number; otherwise blur it in on the word.
+
+**Photo cards and objects (show what they say)**
+- **Floating photo cards**: 2–4 cards flank the speaker at mid-height. Rounded 16–24 px corners, or polaroid/magazine prints with white borders and a soft drop shadow. Tilted ±6–12° with a slight 3D perspective (rotateY ±15–25°). They slide in from the sides with depth blur (inner cards partly **behind** the speaker), drift, and leave on the next sentence. Uses: award photo and magazine cover ("looking back"), a fan of client family photos ("27 new families"), a 2x2 grid of past shoots ("first-time homebuyers, builders").
+- **Annotated object**: the thing they reject, shown as an object with a hand-drawn **red X** drawing itself on (the "fridge magnet" business card with a gold pin).
+- **Real-UI cutaway**: their actual Instagram profile or website shown as a full-frame 3D-tilted page or a phone screen, with the camera pushing across it while the caption continues. An Apple-Maps-style card for a location ("relocating to North Carolina"), in a rounded glass card near the face.
+- **End card**: a still or slow-motion portrait inside a white rounded frame card, with the name in a bold serif ("Madison Newson") and the title in serif italic ("Charlotte Realtor"), centred under the photo. The background is the same location, blurred.
+
+**Rhythm**: something new appears every 1–2 s (a caption word changes on every word), but only **one** hero collage or card group at a time. Leave 1–2 sentences between collage moments with captions only, so the big moments land.
+
 ---
 
 ## 7. Colour and type tokens (quick copy)
@@ -215,6 +254,15 @@ Preset B (Minimal Paper)
   accent: teal #2E8B6A | red #A3121B | purple #7A4CE0 | blue #2F6BFF   (one per video)
 Preset C (Neon Promo, see reel-editor)
   neon #D7FF1F  charcoal #1E1E1E  font Arial Rounded MT Bold
+Preset D (Walk & Talk Kinetic)
+  grade: bright daylight, clean whites, soft contrast, natural skin, shallow DOF
+  caption: Inter/Manrope SemiBold 44–52px white, shadow 0 2px 10px rgba(0,0,0,.35), one word, chest height
+  hero serif italic: Playfair Display Black Italic | DM Serif Display Italic   (giant, 220–340px)
+  hero grotesk: Inter Tight ExtraBold | Archivo Black   lead-ins/tails: Inter Bold Italic
+  gradients: lavender #C3B1F7→#7E5BD9  magenta #F06BF0→#8B3FD9  orange #F2A65A→#E2603A
+             cream-gold #F1E0BE  teal #5FD3C9  red-X #E8322B  money: brushed gold #F4E3B0→#B88A3E
+  cards: radius 16–24, shadow 0 18px 40px rgba(0,0,0,.25), tilt ±6–12°, rotateY ±15–25°
+  end card: white rounded frame, name bold serif + title serif italic
 Fonts (free, Google Fonts): Inter, Manrope, Playfair Display, Instrument Serif,
   DM Serif Display, Pinyon Script, Great Vibes, Unbounded, Syne
 ```
@@ -248,7 +296,20 @@ Fonts must be installed before rendering. With HyperFrames, load them via `@font
   - Over-speaker overlays: transparent (ProRes 4444/WebM alpha).
   - Full-screen scenes: opaque.
   - Composite in RGB so colours stay neutral.
-- **Name lower third / text behind the speaker**: needs a person matte. Use rembg/MediaPipe segmentation, or HyperFrames media-use cutouts. Without a matte, put the name in front.
+- **Name lower third / text behind the speaker**: needs a person matte. Without a matte, put the name in front.
+  - **On this Mac, use `scripts/person_matte.swift`** (Apple Vision person segmentation, no installs; tested 2026-10-29, about 7 fps at 1080x1920, clean hair edges):
+    ```bash
+    swiftc -O scripts/person_matte.swift -o /tmp/person_matte      # once
+    /tmp/person_matte cut.mp4 matte/                               # → matte/m_00001.png …
+    ffmpeg -i cut.mp4 -framerate 30 -i matte/m_%05d.png \
+      -filter_complex "[1]format=gray,gblur=sigma=1.2[m];[0][m]alphamerge,format=yuva420p" \
+      -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 6M person.webm        # speaker-only layer with alpha
+    ```
+  - Stack it in Remotion: footage → text that goes behind → `<OffthreadVideo src={person.webm} transparent />` → front text and captions. In HyperFrames, use the same order.
+  - Other options: rembg/MediaPipe segmentation, or HyperFrames media-use cutouts.
+  - Check a frame where the hand or hair crosses the text, and soften the matte edge (sigma 1–2) if it looks cut out.
+- **Preset D collage text**: build it in Remotion or HyperFrames as HTML (CSS gradients with `background-clip: text`, per-word `filter: blur()` entries, `transform: rotate()`). ASS can't do textured or gradient fills or depth layering.
+- **Whip-blur location change**: over the last 3 frames of shot A and the first 3 of shot B, add a horizontal directional blur (ffmpeg `dblur=angle=0:radius=40`, or CSS on a duplicated layer) plus a 1.0 → 1.06 scale push. Put a soft whoosh on the middle frame.
 - **Background dim under UI**: an ffmpeg `gblur` + `colorchannelmixer`/`curves` on a gradient-masked region, or a gradient layer in the overlay comp.
 - **Halftone objects (preset B)**: cut out the object, desaturate, apply a halftone/dot filter, add a cast shadow (offset, blurred, 25–35% opacity).
 - **Time everything to words.json** (the rough-cut timeline).
@@ -269,11 +330,19 @@ Fonts must be installed before rendering. With HyperFrames, load them via `@font
 - [ ] One accent colour across the whole video. Glow subtle.
 - [ ] Motion: expo-out entries, staggered lists, idle drift, clean exits on the next sentence.
 - [ ] Compare 3–5 rendered frames side by side with `reference/05-caption-frames.jpg` and `reference/06-overlay-in-context.jpg`. If it looks cheaper, busier or louder than the references, simplify.
+- [ ] **Preset D only:**
+  - one word on screen at a time, at chest height under the chin;
+  - no jump cuts inside a walking take, and whip-blur location changes on sentence starts;
+  - at least half of the hero collages go behind the head (matte checked on a hair/hand frame);
+  - one collage or card group at a time, ≤ 3 accent hues, each tied to an idea;
+  - serif name end card.
+  - Compare frames with `reference/09-walk-talk-details.jpg`.
 
 ## 11. Anti-patterns (the boards say "not this")
 
 - Captions over the face or in the top/bottom IG zones.
-- Every word highlighted, rainbow colours, or more than one accent colour.
+- Every word highlighted, rainbow colours, or more than one accent colour. (Preset D allows up to 3 hues, each tied to an idea, and only on the hero collages.)
+- In preset D: caption groups or karaoke lines instead of single words; collage text pasted flat on top of the face with no depth; punch-in jump cuts inside a walking take; two collages or card groups on screen at once.
 - Heavy stroke outlines and meme-style yellow Impact text (outside preset C).
 - Full dashboard screenshots pasted over the speaker. Tiny unreadable UI.
 - Flat white or flat black backgrounds on full-screen scenes.
